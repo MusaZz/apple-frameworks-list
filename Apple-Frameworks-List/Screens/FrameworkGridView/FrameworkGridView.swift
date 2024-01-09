@@ -8,11 +8,27 @@
 import SwiftUI
 
 struct FrameworkGridView: View {
+    
+    @StateObject var viewModel = FrameworkGridViewModel()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+                List {
+                    ForEach(MockData.frameworks) {  framework in
+                        NavigationLink(destination: FrameworkDetailView(framework: framework, isShowingDetailView: $viewModel.isShowingDetailView)) {
+                            FrameworkTitleView(framework: framework)
+                        }
+                    }
+                }
+            .navigationTitle("🍎 Frameworks")
+            }
+        .accentColor(Color(.label))
+        }
     }
-}
+
 
 #Preview {
     FrameworkGridView()
+        .preferredColorScheme(/*@START_MENU_TOKEN@*/.dark/*@END_MENU_TOKEN@*/)
 }
+    
